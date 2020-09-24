@@ -37,8 +37,10 @@ Displays the data you can find on the Monitor panel at runtime on top of your ga
 - The overlay is a 2D node that contains other nodes (one for each graph). Because of this, the reported amount of
 objects / nodes / memory used and others will differ if the overlay is enabled or not. While the difference is not
 significant, keep in mind that it exists.
-- Don't turn on all the graphs at once. Not only there's not enough room to display them all, keeping track of the
-values history and drawing them can impact performance.
+- Plotting a graph requires to keep track of the values history and can impact performance.
+  + If you don't need this feature, you can turn it off by disabling the `Plot Graphs` option in the inspector.
+  + Lowering the `History` parameter also helps.
+
 
 ## Licence
 MIT
