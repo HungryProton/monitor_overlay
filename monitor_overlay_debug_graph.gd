@@ -8,6 +8,7 @@ var font: Font
 var background_color: Color
 var graph_color: Color
 var normalize_units := true
+var plot_graph := true
 
 var _history := []
 var _last_value: float
@@ -47,6 +48,9 @@ func _draw_text() -> void:
 
 # TODO: That function is unoptimized
 func _draw_graph() -> void:
+	if not plot_graph:
+		return
+	
 	# Get the values range
 	var min_value = _history[0]
 	var max_value = _history[0]
@@ -79,9 +83,11 @@ func _draw_graph() -> void:
 		x += offset
 
 
-
 func _update_history():
 	_last_value = Performance.get_monitor(monitor)
+	if not plot_graph:
+		return
+	
 	_history.push_back(_last_value)
 	if _history.size() >= max_points:
 		_history.pop_front()

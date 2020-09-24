@@ -2,6 +2,7 @@ extends VBoxContainer
 
 
 export var background_color := Color(0.0, 0.0, 0.0, 0.5)
+export var plot_graphs := true
 export var graph_color := Color.orange
 export var history := 100
 export var graph_height := 50
@@ -157,6 +158,7 @@ func _create_graph_for(monitor: int, name: String) -> void:
 	graph.max_points = history
 	graph.background_color = background_color
 	graph.graph_color = graph_color
+	graph.plot_graph = plot_graphs
 
 	add_child(graph)
 	_graphs.append(graph)
