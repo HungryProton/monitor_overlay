@@ -11,13 +11,7 @@ var normalize_units := true
 
 var _history := []
 var _last_value: float
-var _points := PoolVector2Array()
 var _units = ["K", "M", "G", "T"]
-
-func _ready() -> void:
-	_points.resize(max_points * 2)
-	for i in max_points:
-		_points[i] = Vector2.ZERO
 
 
 func _draw() -> void:
@@ -51,7 +45,7 @@ func _draw_text() -> void:
 	draw_string(font, position, text)
 
 
-# TODO: That function is awfully slow
+# TODO: That function is unoptimized
 func _draw_graph() -> void:
 	# Get the values range
 	var min_value = _history[0]
@@ -76,16 +70,14 @@ func _draw_graph() -> void:
 	var previous_point = Vector2.ZERO
 	var next_point = Vector2.ZERO
 	
-	for i in _history.size():
-		var value = _history[i]
+	for value in _history:
 		value = range_lerp(value, min_value, max_value, 0.0, height)
 		next_point = Vector2(x, value) + origin
-		_points[2 * i] = previous_point
-		_points[2 * i + 1] = next_point
+		draw_line(previous_point, next_point, graph_color)
+		
 		previous_point = next_point
 		x += offset
-	
-	draw_multiline(_points, graph_color)
+
 
 
 func _update_history():
