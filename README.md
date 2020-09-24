@@ -25,6 +25,14 @@ Displays the data you can find on the Monitor panel at runtime on top of your ga
 ![image](https://user-images.githubusercontent.com/52043844/94172856-53ee5f80-fe93-11ea-82c4-a1c2d40a3f38.png)
 
 
+### Changing the position and size
+
+- The whole overlay is a Control node so you can adjust its width in the inspector under `Rect > Min Size`.
+  + Default is 300 pixels wide.
+- If you prefer it to be on the right side of the screen, select the `Monitor Overlay` node, click on `Layout > Right Wide`.
+- To change the vertical size of the graphs, adjust the `Graph Height` properties in the inspector.
+
+
 ## Important note
 - The overlay is a 2D node that contains other nodes (one for each graph). Because of this, the reported amount of
 objects / nodes / memory used and others will differ if the overlay is enabled or not. While the difference is not
