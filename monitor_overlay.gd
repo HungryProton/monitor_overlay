@@ -54,22 +54,22 @@ func _ready():
 		_create_graph_for(Performance.TIME_FPS, "FPS")
 		
 	if process:
-		_create_graph_for(Performance.TIME_PROCESS, "Process")
+		_create_graph_for(Performance.TIME_PROCESS, "Process", "s")
 		
 	if physics_process:
-		_create_graph_for(Performance.TIME_PHYSICS_PROCESS, "Physics Process")
+		_create_graph_for(Performance.TIME_PHYSICS_PROCESS, "Physics Process", "s")
 		
 	if static_memory:
-		_create_graph_for(Performance.MEMORY_STATIC, "Static Memory")
+		_create_graph_for(Performance.MEMORY_STATIC, "Static Memory", "B")
 		
 	if dynamic_memory:
-		_create_graph_for(Performance.MEMORY_DYNAMIC, "Dynamic Memory")
+		_create_graph_for(Performance.MEMORY_DYNAMIC, "Dynamic Memory", "B")
 		
 	if max_static_memory:
-		_create_graph_for(Performance.MEMORY_STATIC_MAX, "Max Static Memory")
+		_create_graph_for(Performance.MEMORY_STATIC_MAX, "Max Static Memory", "B")
 	
 	if max_dynamic_memory:
-		_create_graph_for(Performance.MEMORY_DYNAMIC_MAX, "Max Dynamic Memory")
+		_create_graph_for(Performance.MEMORY_DYNAMIC_MAX, "Max Dynamic Memory", "B")
 	
 	if max_message_buffer:
 		_create_graph_for(Performance.MEMORY_MESSAGE_BUFFER_MAX, "Message Buffer Max")
@@ -111,16 +111,16 @@ func _ready():
 		_create_graph_for(Performance.RENDER_2D_DRAW_CALLS_IN_FRAME, "2D Draw calls")
 	
 	if video_memory:
-		_create_graph_for(Performance.RENDER_VIDEO_MEM_USED, "Video Memory")
+		_create_graph_for(Performance.RENDER_VIDEO_MEM_USED, "Video Memory", "B")
 	
 	if texture_memory:
-		_create_graph_for(Performance.RENDER_TEXTURE_MEM_USED, "Texture Memory")
+		_create_graph_for(Performance.RENDER_TEXTURE_MEM_USED, "Texture Memory", "B")
 	
 	if vertex_memory:
-		_create_graph_for(Performance.RENDER_VERTEX_MEM_USED, "Vertex Memory")
+		_create_graph_for(Performance.RENDER_VERTEX_MEM_USED, "Vertex Memory", "B")
 	
 	if max_video_memory:
-		_create_graph_for(Performance.RENDER_USAGE_VIDEO_MEM_TOTAL, "Max Video Memory")
+		_create_graph_for(Performance.RENDER_USAGE_VIDEO_MEM_TOTAL, "Max Video Memory", "B")
 	
 	if active_objects_2d:
 		_create_graph_for(Performance.PHYSICS_2D_ACTIVE_OBJECTS, "2D Active Objects")
@@ -141,7 +141,7 @@ func _ready():
 		_create_graph_for(Performance.PHYSICS_3D_ISLAND_COUNT, "3D Islands")
 	
 	if audio_output_latency:
-		_create_graph_for(Performance.AUDIO_OUTPUT_LATENCY, "Audio Output Latency")
+		_create_graph_for(Performance.AUDIO_OUTPUT_LATENCY, "Audio Latency", "s")
 
 
 func _process(_delta) -> void:
@@ -149,7 +149,7 @@ func _process(_delta) -> void:
 		item.update()
 
 
-func _create_graph_for(monitor: int, name: String) -> void:
+func _create_graph_for(monitor: int, name: String, unit: String = "") -> void:
 	var graph = _debug_graph.new()
 	graph.monitor = monitor
 	graph.monitor_name = name
@@ -159,6 +159,7 @@ func _create_graph_for(monitor: int, name: String) -> void:
 	graph.background_color = background_color
 	graph.graph_color = graph_color
 	graph.plot_graph = plot_graphs
+	graph.unit = unit
 
 	add_child(graph)
 	_graphs.append(graph)
