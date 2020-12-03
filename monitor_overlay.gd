@@ -49,7 +49,17 @@ var _graphs := []
 func _ready():
 	if rect_min_size.x == 0:
 		rect_min_size.x = 300
-		
+	rebuild_ui()
+
+
+func clear() -> void:
+	for graph in _graphs:
+		graph.queue_free()
+	_graphs = []
+
+
+func rebuild_ui() -> void:
+	clear()
 	if fps:
 		_create_graph_for(Performance.TIME_FPS, "FPS")
 		
@@ -162,4 +172,4 @@ func _create_graph_for(monitor: int, name: String, unit: String = "") -> void:
 	graph.unit = unit
 
 	add_child(graph)
-	_graphs.append(graph)
+	_graphs.push_back(graph)
