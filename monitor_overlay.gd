@@ -62,94 +62,94 @@ func rebuild_ui() -> void:
 	clear()
 	if fps:
 		_create_graph_for(Performance.TIME_FPS, "FPS")
-		
+
 	if process:
 		_create_graph_for(Performance.TIME_PROCESS, "Process", "s")
-		
+
 	if physics_process:
 		_create_graph_for(Performance.TIME_PHYSICS_PROCESS, "Physics Process", "s")
-		
+
 	if static_memory:
 		_create_graph_for(Performance.MEMORY_STATIC, "Static Memory", "B")
-		
+
 	if dynamic_memory:
 		_create_graph_for(Performance.MEMORY_DYNAMIC, "Dynamic Memory", "B")
-		
+
 	if max_static_memory:
 		_create_graph_for(Performance.MEMORY_STATIC_MAX, "Max Static Memory", "B")
-	
+
 	if max_dynamic_memory:
 		_create_graph_for(Performance.MEMORY_DYNAMIC_MAX, "Max Dynamic Memory", "B")
-	
+
 	if max_message_buffer:
 		_create_graph_for(Performance.MEMORY_MESSAGE_BUFFER_MAX, "Message Buffer Max")
-	
+
 	if objects:
 		_create_graph_for(Performance.OBJECT_COUNT, "Objects")
-	
+
 	if resources:
 		_create_graph_for(Performance.OBJECT_RESOURCE_COUNT, "Resources")
-	
+
 	if nodes:
 		_create_graph_for(Performance.OBJECT_NODE_COUNT, "Nodes")
-	
+
 	if orphan_nodes:
 		_create_graph_for(Performance.OBJECT_ORPHAN_NODE_COUNT, "Orphan Nodes")
-	
+
 	if objects_drawn:
 		_create_graph_for(Performance.RENDER_OBJECTS_IN_FRAME, "Objects Drawn")
-	
+
 	if vertices_drawn:
 		_create_graph_for(Performance.RENDER_VERTICES_IN_FRAME, "Vertices Drawn")
-	
+
 	if material_changes:
 		_create_graph_for(Performance.RENDER_MATERIAL_CHANGES_IN_FRAME, "Material Changes")
-	
+
 	if shader_changes:
 		_create_graph_for(Performance.RENDER_SHADER_CHANGES_IN_FRAME, "Shader Changes")
-	
+
 	if surface_changes:
 		_create_graph_for(Performance.RENDER_SURFACE_CHANGES_IN_FRAME, "Surface Changes")
-	
+
 	if draw_calls_3d:
 		_create_graph_for(Performance.RENDER_DRAW_CALLS_IN_FRAME, "3D Draw Calls")
-	
+
 	if items_2d:
 		_create_graph_for(Performance.RENDER_2D_ITEMS_IN_FRAME, "2D Items")
-	
+
 	if draw_calls_2d:
 		_create_graph_for(Performance.RENDER_2D_DRAW_CALLS_IN_FRAME, "2D Draw calls")
-	
+
 	if video_memory:
 		_create_graph_for(Performance.RENDER_VIDEO_MEM_USED, "Video Memory", "B")
-	
+
 	if texture_memory:
 		_create_graph_for(Performance.RENDER_TEXTURE_MEM_USED, "Texture Memory", "B")
-	
+
 	if vertex_memory:
 		_create_graph_for(Performance.RENDER_VERTEX_MEM_USED, "Vertex Memory", "B")
-	
+
 	if max_video_memory:
 		_create_graph_for(Performance.RENDER_USAGE_VIDEO_MEM_TOTAL, "Max Video Memory", "B")
-	
+
 	if active_objects_2d:
 		_create_graph_for(Performance.PHYSICS_2D_ACTIVE_OBJECTS, "2D Active Objects")
-	
+
 	if collision_pairs_2d:
 		_create_graph_for(Performance.PHYSICS_2D_COLLISION_PAIRS, " 2D Collision Pairs")
-	
+
 	if islands_2d:
 		_create_graph_for(Performance.PHYSICS_2D_ISLAND_COUNT, "2D Islands")
-	
+
 	if active_objects_3d:
 		_create_graph_for(Performance.PHYSICS_3D_ACTIVE_OBJECTS, " 3D Active Objects")
-	
+
 	if collision_pairs_3d:
 		_create_graph_for(Performance.PHYSICS_3D_COLLISION_PAIRS, "3D Collision Pairs")
-	
+
 	if islands_3d:
 		_create_graph_for(Performance.PHYSICS_3D_ISLAND_COUNT, "3D Islands")
-	
+
 	if audio_output_latency:
 		_create_graph_for(Performance.AUDIO_OUTPUT_LATENCY, "Audio Latency", "s")
 
