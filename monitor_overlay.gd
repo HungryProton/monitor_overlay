@@ -4,8 +4,10 @@ extends VBoxContainer
 export var background_color := Color(0.0, 0.0, 0.0, 0.5)
 export var plot_graphs := true
 export var graph_color := Color.orange
+export var normalize_units := true
 export var history := 100
 export var graph_height := 50
+
 
 export var fps := true
 export var process := false
@@ -170,6 +172,7 @@ func _create_graph_for(monitor: int, name: String, unit: String = "") -> void:
 	graph.graph_color = graph_color
 	graph.plot_graph = plot_graphs
 	graph.unit = unit
+	graph.normalize_units = normalize_units
 
 	add_child(graph)
 	_graphs.push_back(graph)

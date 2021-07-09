@@ -86,7 +86,7 @@ func _update_history():
 func _normalize_value(value: float) -> String:
 	var result := String(value) + unit
 
-	if not normalize_units:
+	if not normalize_units or _last_value == 0.0:
 		return result
 
 	if _last_value > 1000.0:
@@ -98,7 +98,7 @@ func _normalize_value(value: float) -> String:
 		var scale = ["K", "M", "G", "T"]
 		result = String(stepify(v, 0.001)) + scale[index] + unit
 
-	elif _last_value < 1.0:
+	if _last_value < 1.0:
 		var v = _last_value
 		var index = -1
 		while v < 1.0 and index < 2:
