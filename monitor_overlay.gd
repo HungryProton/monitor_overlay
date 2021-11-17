@@ -1,49 +1,41 @@
 extends VBoxContainer
 
 
-export var background_color := Color(0.0, 0.0, 0.0, 0.5)
-export var plot_graphs := true
-export var graph_color := Color.orange
-export var normalize_units := true
-export var history := 100
-export var graph_height := 50
+@export var background_color := Color(0.0, 0.0, 0.0, 0.5)
+@export var plot_graphs := true
+@export var graph_color := Color.ORANGE
+@export var normalize_units := true
+@export var history := 100
+@export var graph_height := 50
 
 
-export var fps := true
-export var process := false
-export var physics_process := false
-export var static_memory := false
-export var dynamic_memory := false
-export var max_static_memory := false
-export var max_dynamic_memory := false
-export var max_message_buffer := false
-export var objects := false
-export var resources := false
-export var nodes := false
-export var orphan_nodes := false
-export var objects_drawn := false
-export var vertices_drawn := false
-export var material_changes := false
-export var shader_changes := false
-export var surface_changes := false
-export var draw_calls_3d := false
-export var items_2d := false
-export var draw_calls_2d := false
-export var video_memory := false
-export var texture_memory := false
-export var vertex_memory := false
-export var max_video_memory := false
-export var active_objects_2d := false
-export var collision_pairs_2d := false
-export var islands_2d := false
-export var active_objects_3d := false
-export var collision_pairs_3d := false
-export var islands_3d := false
-export var audio_output_latency := false
+@export var fps := true
+@export var process := false
+@export var physics_process := false
+@export var static_memory := false
+@export var max_static_memory := false
+@export var max_message_buffer := false
+@export var objects := false
+@export var resources := false
+@export var nodes := false
+@export var orphan_nodes := false
+@export var objects_drawn := false
+@export var primitives_drawn := false
+@export var total_draw_calls := false
+@export var video_memory := false
+@export var texture_memory := false
+@export var buffer_memory := false
+@export var active_objects_2d := false
+@export var collision_pairs_2d := false
+@export var islands_2d := false
+@export var active_objects_3d := false
+@export var collision_pairs_3d := false
+@export var islands_3d := false
+@export var audio_output_latency := false
 
 
 var _timer: Timer
-var _font: DynamicFont = load("res://addons/monitor_overlay/font/overlay_font.tres")
+var _font: Font = load("res://addons/monitor_overlay/font/overlay_font.tres")
 var _debug_graph = load("res://addons/monitor_overlay/monitor_overlay_debug_graph.gd")
 var _graphs := []
 
@@ -74,14 +66,8 @@ func rebuild_ui() -> void:
 	if static_memory:
 		_create_graph_for(Performance.MEMORY_STATIC, "Static Memory", "B")
 
-	if dynamic_memory:
-		_create_graph_for(Performance.MEMORY_DYNAMIC, "Dynamic Memory", "B")
-
 	if max_static_memory:
 		_create_graph_for(Performance.MEMORY_STATIC_MAX, "Max Static Memory", "B")
-
-	if max_dynamic_memory:
-		_create_graph_for(Performance.MEMORY_DYNAMIC_MAX, "Max Dynamic Memory", "B")
 
 	if max_message_buffer:
 		_create_graph_for(Performance.MEMORY_MESSAGE_BUFFER_MAX, "Message Buffer Max")
@@ -99,28 +85,13 @@ func rebuild_ui() -> void:
 		_create_graph_for(Performance.OBJECT_ORPHAN_NODE_COUNT, "Orphan Nodes")
 
 	if objects_drawn:
-		_create_graph_for(Performance.RENDER_OBJECTS_IN_FRAME, "Objects Drawn")
+		_create_graph_for(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME, "Objects Drawn")
 
-	if vertices_drawn:
-		_create_graph_for(Performance.RENDER_VERTICES_IN_FRAME, "Vertices Drawn")
+	if primitives_drawn:
+		_create_graph_for(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME, "Primitives Drawn")
 
-	if material_changes:
-		_create_graph_for(Performance.RENDER_MATERIAL_CHANGES_IN_FRAME, "Material Changes")
-
-	if shader_changes:
-		_create_graph_for(Performance.RENDER_SHADER_CHANGES_IN_FRAME, "Shader Changes")
-
-	if surface_changes:
-		_create_graph_for(Performance.RENDER_SURFACE_CHANGES_IN_FRAME, "Surface Changes")
-
-	if draw_calls_3d:
-		_create_graph_for(Performance.RENDER_DRAW_CALLS_IN_FRAME, "3D Draw Calls")
-
-	if items_2d:
-		_create_graph_for(Performance.RENDER_2D_ITEMS_IN_FRAME, "2D Items")
-
-	if draw_calls_2d:
-		_create_graph_for(Performance.RENDER_2D_DRAW_CALLS_IN_FRAME, "2D Draw calls")
+	if total_draw_calls:
+		_create_graph_for(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME, "3D Draw Calls")
 
 	if video_memory:
 		_create_graph_for(Performance.RENDER_VIDEO_MEM_USED, "Video Memory", "B")
@@ -128,11 +99,8 @@ func rebuild_ui() -> void:
 	if texture_memory:
 		_create_graph_for(Performance.RENDER_TEXTURE_MEM_USED, "Texture Memory", "B")
 
-	if vertex_memory:
-		_create_graph_for(Performance.RENDER_VERTEX_MEM_USED, "Vertex Memory", "B")
-
-	if max_video_memory:
-		_create_graph_for(Performance.RENDER_USAGE_VIDEO_MEM_TOTAL, "Max Video Memory", "B")
+	if buffer_memory:
+		_create_graph_for(Performance.RENDER_BUFFER_MEM_USED, "Vertex Memory", "B")
 
 	if active_objects_2d:
 		_create_graph_for(Performance.PHYSICS_2D_ACTIVE_OBJECTS, "2D Active Objects")

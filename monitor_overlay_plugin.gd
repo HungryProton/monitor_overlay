@@ -1,12 +1,14 @@
-tool
+@tool
 extends EditorPlugin
 
-func get_name(): 
+
+func get_name():
 	return "MonitorOverlay"
+
 
 func _enter_tree():
 	add_custom_type(
-		"MonitorOverlay", 
+		"MonitorOverlay",
 		"VBoxContainer",
 		load("res://addons/monitor_overlay/monitor_overlay.gd"),
 		load("res://addons/monitor_overlay/icon.svg")
