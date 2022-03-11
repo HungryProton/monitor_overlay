@@ -67,7 +67,8 @@ func _draw_graph() -> void:
 	for value in _history:
 		value = range_lerp(value, min_value, max_value, margin, height - margin)
 		next_point = Vector2(x, height - value) + origin
-		draw_line(previous_point, next_point, graph_color)
+		if x > 0:
+			draw_line(previous_point, next_point, graph_color)
 
 		previous_point = next_point
 		x += offset
