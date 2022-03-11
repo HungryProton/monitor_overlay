@@ -1,49 +1,142 @@
+@tool
 extends VBoxContainer
 
+const DebugGraph := preload("./monitor_overlay_debug_graph.gd")
 
-@export var background_color := Color(0.0, 0.0, 0.0, 0.5)
-@export var plot_graphs := true
-@export var graph_color := Color.ORANGE
-@export var normalize_units := true
-@export var history := 100
-@export var graph_height := 50
+# Graph options
+var background_color := Color(0.0, 0.0, 0.0, 0.5)
+var plot_graphs := true
+var graph_color := Color.ORANGE
+var normalize_units := true
+var history := 100
+var graph_height := 50
 
+# Monitors
+var fps := true
+var process := false
+var physics_process := false
+var static_memory := false
+var max_static_memory := false
+var max_message_buffer := false
+var objects := false
+var resources := false
+var nodes := false
+var orphan_nodes := false
+var objects_drawn := false
+var primitives_drawn := false
+var total_draw_calls := false
+var video_memory := false
+var texture_memory := false
+var buffer_memory := false
+var active_objects_2d := false
+var collision_pairs_2d := false
+var islands_2d := false
+var active_objects_3d := false
+var collision_pairs_3d := false
+var islands_3d := false
+var audio_output_latency := false
 
-@export var fps := true
-@export var process := false
-@export var physics_process := false
-@export var static_memory := false
-@export var max_static_memory := false
-@export var max_message_buffer := false
-@export var objects := false
-@export var resources := false
-@export var nodes := false
-@export var orphan_nodes := false
-@export var objects_drawn := false
-@export var primitives_drawn := false
-@export var total_draw_calls := false
-@export var video_memory := false
-@export var texture_memory := false
-@export var buffer_memory := false
-@export var active_objects_2d := false
-@export var collision_pairs_2d := false
-@export var islands_2d := false
-@export var active_objects_3d := false
-@export var collision_pairs_3d := false
-@export var islands_3d := false
-@export var audio_output_latency := false
-
-
-var _timer: Timer
-var _font: Font = load("res://addons/monitor_overlay/font/overlay_font.tres")
-var _debug_graph = load("res://addons/monitor_overlay/monitor_overlay_debug_graph.gd")
+var _property_list := []
 var _graphs := []
 
 
 func _ready():
-	if rect_min_size.x == 0:
-		rect_min_size.x = 300
+	_init_property_list()
+	if minimum_size.x == 0:
+		minimum_size.x = 300
 	rebuild_ui()
+
+
+func _get_property_list() -> Array:
+	return _property_list
+
+
+# We manualy define exposed properties here instead of using the @export
+# annotation so we can define categories, groups and subgroups.
+func _init_property_list() -> void:
+	_property_list.clear()
+
+	_add_script_category("MonitorOverlay")
+
+	_add_script_group("Active monitors")
+	_add_script_subgroup("Time")
+	_add_script_property("fps", TYPE_BOOL, true)
+	_add_script_property("process", TYPE_BOOL, true)
+	_add_script_property("physics_process", TYPE_BOOL, false)
+
+	_add_script_subgroup("Memory")
+	_add_script_property("static_memory", TYPE_BOOL, false)
+	_add_script_property("max_static_memory", TYPE_BOOL, false)
+	_add_script_property("max_message_buffer", TYPE_BOOL, false)
+
+	_add_script_subgroup("Object")
+	_add_script_property("objects", TYPE_BOOL, false)
+	_add_script_property("resources", TYPE_BOOL, false)
+	_add_script_property("nodes", TYPE_BOOL, false)
+	_add_script_property("orphan_nodes", TYPE_BOOL, false)
+
+	_add_script_subgroup("Raster")
+	_add_script_property("objects_drawn", TYPE_BOOL, false)
+	_add_script_property("primitives_drawn", TYPE_BOOL, false)
+	_add_script_property("total_draw_calls", TYPE_BOOL, false)
+
+	_add_script_subgroup("Video")
+	_add_script_property("video_memory", TYPE_BOOL, false)
+	_add_script_property("texture_memory", TYPE_BOOL, false)
+	_add_script_property("buffer_memory", TYPE_BOOL, false)
+
+	_add_script_subgroup("Physics 2D")
+	_add_script_property("active_objects_2d", TYPE_BOOL, false)
+	_add_script_property("collision_pairs_2d", TYPE_BOOL, false)
+	_add_script_property("islands_2d", TYPE_BOOL, false)
+
+	_add_script_subgroup("Physics 3D")
+	_add_script_property("active_objects_3d", TYPE_BOOL, false)
+	_add_script_property("collision_pairs_3d", TYPE_BOOL, false)
+	_add_script_property("islands_3d", TYPE_BOOL, false)
+
+	_add_script_subgroup("Audio")
+	_add_script_property("audio_output_latency", TYPE_BOOL, false)
+
+	_add_script_group("Options")
+	_add_script_property("normalize_units", TYPE_BOOL, true)
+	_add_script_property("plot_graphs", TYPE_BOOL, true)
+	_add_script_property("history", TYPE_INT, 100)
+	_add_script_property("background_color", TYPE_COLOR, Color(0.0, 0.0, 0.0, 0.5))
+	_add_script_property("graph_color", TYPE_COLOR, Color.ORANGE)
+	_add_script_property("graph_height", TYPE_INT, 50)
+
+
+func _add_script_category(category_name: String) -> void:
+	_property_list.push_back({
+		name = category_name,
+		type = TYPE_NIL,
+		usage = PROPERTY_USAGE_CATEGORY | PROPERTY_USAGE_SCRIPT_VARIABLE,
+	})
+
+
+func _add_script_group(group_name: String) -> void:
+	_property_list.push_back({
+		name = group_name,
+		type = TYPE_NIL,
+		usage = PROPERTY_USAGE_GROUP | PROPERTY_USAGE_SCRIPT_VARIABLE,
+	})
+
+
+func _add_script_subgroup(subgroup_name: String) -> void:
+	_property_list.push_back({
+		name = subgroup_name,
+		type = TYPE_NIL,
+		usage = PROPERTY_USAGE_SUBGROUP | PROPERTY_USAGE_SCRIPT_VARIABLE,
+	})
+
+
+func _add_script_property(property_name: String, type: int, value) -> void:
+	_property_list.push_back({
+		name = property_name,
+		type = type,
+		value = value
+	})
 
 
 func clear() -> void:
@@ -124,17 +217,17 @@ func rebuild_ui() -> void:
 		_create_graph_for(Performance.AUDIO_OUTPUT_LATENCY, "Audio Latency", "s")
 
 
-func _process(_delta) -> void:
+func _process(_delta: float) -> void:
 	for item in _graphs:
 		item.update()
 
 
-func _create_graph_for(monitor: int, name: String, unit: String = "") -> void:
-	var graph = _debug_graph.new()
+func _create_graph_for(monitor: int, monitor_name: String, unit: String = "") -> void:
+	var graph = DebugGraph.new()
 	graph.monitor = monitor
-	graph.monitor_name = name
-	graph.font = _font
-	graph.rect_min_size.y = graph_height
+	graph.monitor_name = monitor_name
+	graph.font = get_theme_default_font()
+	graph.minimum_size.y = graph_height
 	graph.max_points = history
 	graph.background_color = background_color
 	graph.graph_color = graph_color

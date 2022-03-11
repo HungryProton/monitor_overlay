@@ -25,7 +25,7 @@ func _draw() -> void:
 func _draw_background_panel() -> void:
 	var panel := Rect2()
 	panel.position = get_canvas_transform().origin
-	panel.size = rect_size
+	panel.size = size
 	draw_rect(panel, background_color)
 
 
@@ -57,8 +57,8 @@ func _draw_graph() -> void:
 
 	# Convert to 2D coordinates
 	var x := 0.0
-	var offset := rect_size.x / max_points
-	var height := rect_size.y
+	var offset := size.x / max_points
+	var height := size.y
 	var margin = height / 10.0
 	var origin := get_canvas_transform().origin
 	var previous_point = Vector2.ZERO

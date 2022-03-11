@@ -7,7 +7,7 @@ Displays the data you can find on the Monitor panel at runtime on top of your ga
 ## How to install
 
 - Clone this repository in your `addons` folders.
-- After installation, you should have something like this:  
+- After installation, you should have something like this:
 ![image](https://user-images.githubusercontent.com/52043844/94172261-92cfe580-fe92-11ea-9f09-1d529382e2b7.png)
 - Do **not** rename the folder, it has to be **monitor_overlay**.
   + If you downloaded a zip file of this repository, chances are this folder will be named `monitor_overlay-master`.

@@ -1,6 +1,0 @@
-[gd_resource type="Font" load_steps=2 format=3 uid="uid://bff6keqg14rdn"]
-
-[ext_resource type="FontData" uid="uid://de77nbn6lrb6j" path="res://addons/monitor_overlay/font/fira_sans_regular.ttf" id="1"]
-
-[resource]
-data/0 = ExtResource( "1" )
