@@ -42,8 +42,8 @@ var _graphs := []
 
 func _ready():
 	_init_property_list()
-	if minimum_size.x == 0:
-		minimum_size.x = 300
+	if custom_minimum_size.x == 0:
+		custom_minimum_size.x = 300
 	rebuild_ui()
 
 
@@ -227,7 +227,7 @@ func _create_graph_for(monitor: int, monitor_name: String, unit: String = "") ->
 	graph.monitor = monitor
 	graph.monitor_name = monitor_name
 	graph.font = get_theme_default_font()
-	graph.minimum_size.y = graph_height
+	graph.custom_minimum_size.y = graph_height
 	graph.max_points = history
 	graph.background_color = background_color
 	graph.graph_color = graph_color

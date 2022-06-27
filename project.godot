@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Monitor Overlay"
-config/icon="res://icon.png"
 config/features=PackedStringArray("4.0", "Vulkan Mobile")
+config/icon="res://icon.png"
 
 [editor_plugins]
 
