@@ -12,29 +12,98 @@ var history := 100
 var graph_height := 50
 
 # Monitors
-var fps := true
-var process := false
-var physics_process := false
-var static_memory := false
-var max_static_memory := false
-var max_message_buffer := false
-var objects := false
-var resources := false
-var nodes := false
-var orphan_nodes := false
-var objects_drawn := false
-var primitives_drawn := false
-var total_draw_calls := false
-var video_memory := false
-var texture_memory := false
-var buffer_memory := false
-var active_objects_2d := false
-var collision_pairs_2d := false
-var islands_2d := false
-var active_objects_3d := false
-var collision_pairs_3d := false
-var islands_3d := false
-var audio_output_latency := false
+var fps := true:
+	set(value):
+		fps = value
+		rebuild_ui()
+var process := false:
+	set(value):
+		process = value
+		rebuild_ui()
+var physics_process := false:
+	set(value):
+		physics_process = value
+		rebuild_ui()
+var static_memory := false:
+	set(value):
+		static_memory = value
+		rebuild_ui()
+var max_static_memory := false:
+	set(value):
+		max_static_memory = value
+		rebuild_ui()
+var max_message_buffer := false:
+	set(value):
+		max_message_buffer = value
+		rebuild_ui()
+var objects := false:
+	set(value):
+		objects = value
+		rebuild_ui()
+var resources := false:
+	set(value):
+		resources = value
+		rebuild_ui()
+var nodes := false:
+	set(value):
+		nodes = value
+		rebuild_ui()
+var orphan_nodes := false:
+	set(value):
+		orphan_nodes = value
+		rebuild_ui()
+var objects_drawn := false:
+	set(value):
+		objects_drawn = value
+		rebuild_ui()
+var primitives_drawn := false:
+	set(value):
+		primitives_drawn = value
+		rebuild_ui()
+var total_draw_calls := false:
+	set(value):
+		total_draw_calls = value
+		rebuild_ui()
+var video_memory := false:
+	set(value):
+		video_memory = value
+		rebuild_ui()
+var texture_memory := false:
+	set(value):
+		texture_memory = value
+		rebuild_ui()
+var buffer_memory := false:
+	set(value):
+		buffer_memory = value
+		rebuild_ui()
+var active_objects_2d := false:
+	set(value):
+		active_objects_2d = value
+		rebuild_ui()
+var collision_pairs_2d := false:
+	set(value):
+		collision_pairs_2d = value
+		rebuild_ui()
+var islands_2d := false:
+	set(value):
+		islands_2d = value
+		rebuild_ui()
+var active_objects_3d := false:
+	set(value):
+		active_objects_3d = value
+		rebuild_ui()
+var collision_pairs_3d := false:
+	set(value):
+		collision_pairs_3d = value
+		rebuild_ui()
+var islands_3d := false:
+	set(value):
+		islands_3d = value
+		rebuild_ui()
+var audio_output_latency := false:
+	set(value):
+		audio_output_latency = value
+		rebuild_ui()
 
 var _property_list := []
 var _graphs := []
