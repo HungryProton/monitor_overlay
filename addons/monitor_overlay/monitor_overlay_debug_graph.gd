@@ -46,10 +46,8 @@ func _draw_graph() -> void:
 	var min_value = _history[0]
 	var max_value = _history[0]
 	for value in _history:
-		if value < min_value:
-			min_value = value
-		if value > max_value:
-			max_value = value
+		min_value = min(value, min_value)
+		max_value = max(value, max_value)
 
 	if min_value == max_value:
 		min_value -= 1
@@ -61,17 +59,17 @@ func _draw_graph() -> void:
 	var height := size.y
 	var margin = height / 10.0
 	var origin := get_canvas_transform().origin
-	var previous_point = Vector2.ZERO
-	var next_point = Vector2.ZERO
-
+	var points = PackedVector2Array()
+	
 	for value in _history:
 		value = remap(value, min_value, max_value, margin, height - margin)
-		next_point = Vector2(x, height - value) + origin
 		if x > 0:
-			draw_line(previous_point, next_point, graph_color)
-
-		previous_point = next_point
+			points.push_back(Vector2(x, height - value) + origin)
+		
 		x += offset
+	
+	if points.size() > 1:
+		draw_polyline(points, graph_color)
 
 
 func _update_history():
