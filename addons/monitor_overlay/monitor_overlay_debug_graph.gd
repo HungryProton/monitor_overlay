@@ -65,7 +65,7 @@ func _draw_graph() -> void:
 	var next_point = Vector2.ZERO
 
 	for value in _history:
-		value = range_lerp(value, min_value, max_value, margin, height - margin)
+		value = remap(value, min_value, max_value, margin, height - margin)
 		next_point = Vector2(x, height - value) + origin
 		if x > 0:
 			draw_line(previous_point, next_point, graph_color)
