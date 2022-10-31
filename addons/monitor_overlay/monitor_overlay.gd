@@ -288,7 +288,7 @@ func rebuild_ui() -> void:
 
 func _process(_delta: float) -> void:
 	for item in _graphs:
-		item.update()
+		item.queue_redraw()
 
 
 func _create_graph_for(monitor: int, monitor_name: String, unit: String = "") -> void:
