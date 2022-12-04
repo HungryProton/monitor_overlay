@@ -10,6 +10,8 @@ var graph_color: Color
 var normalize_units := true
 var plot_graph := true
 var unit: String
+var thickness: float
+var antialiased: bool
 
 var _history := []
 var _last_value: float
@@ -69,7 +71,7 @@ func _draw_graph() -> void:
 		x += offset
 	
 	if points.size() > 1:
-		draw_polyline(points, graph_color)
+		draw_polyline(points, graph_color, thickness, antialiased)
 
 
 func _update_history():
