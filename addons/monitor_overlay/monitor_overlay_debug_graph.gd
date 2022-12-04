@@ -18,8 +18,8 @@ var _last_value: float
 func _draw() -> void:
 	_update_history()
 	_draw_background_panel()
-	_draw_text()
 	_draw_graph()
+	_draw_text()
 
 
 func _draw_background_panel() -> void:
