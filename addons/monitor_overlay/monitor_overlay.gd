@@ -108,14 +108,48 @@ const DebugGraph := preload("./monitor_overlay_debug_graph.gd")
 
 # Graph options
 @export_group("Options")
-@export var normalize_units := true
-@export var plot_graphs := true
-@export var history := 100
-@export var background_color := Color(0.0, 0.0, 0.0, 0.5)
-@export var graph_color := Color.ORANGE
-@export var graph_height := 50
+## Sampling rate in samples per second
+@export_range(0.0, 1000.0) var sampling_rate := 60.0:
+	set(value):
+		sampling_rate = value
+		# if sampling rate is 0, _t_limit is infinity
+		_t_limit = 1 / sampling_rate
+@export var normalize_units := true:
+	set(value):
+		normalize_units = value
+		rebuild_ui()
+@export var plot_graphs := true:
+	set(value):
+		plot_graphs = value
+		rebuild_ui()
+@export var history := 100:
+	set(value):
+		history = value
+		rebuild_ui()
+@export var background_color := Color(0.0, 0.0, 0.0, 0.5):
+	set(value):
+		background_color = value
+		rebuild_ui()
+@export var graph_color := Color.ORANGE:
+	set(value):
+		graph_color = value
+		rebuild_ui()
+@export var graph_height := 50:
+	set(value):
+		graph_height = value
+		rebuild_ui()
+@export var graph_thickness := 1.0:
+	set(value):
+		graph_thickness = value
+		rebuild_ui()
+@export var graph_antialiased := false:
+	set(value):
+		graph_antialiased = value
+		rebuild_ui()
 
 var _graphs := []
+var _t := 0.0
+var _t_limit := 0.0
 
 
 func _ready():
@@ -202,9 +236,12 @@ func rebuild_ui() -> void:
 		_create_graph_for(Performance.AUDIO_OUTPUT_LATENCY, "Audio Latency", "s")
 
 
-func _process(_delta: float) -> void:
-	for item in _graphs:
-		item.queue_redraw()
+func _process(delta: float) -> void:
+	_t += delta
+	if _t >= _t_limit:
+		_t = 0
+		for item in _graphs:
+			item.queue_redraw()
 
 
 func _create_graph_for(monitor: int, monitor_name: String, unit: String = "") -> void:
@@ -219,6 +256,8 @@ func _create_graph_for(monitor: int, monitor_name: String, unit: String = "") ->
 	graph.plot_graph = plot_graphs
 	graph.unit = unit
 	graph.normalize_units = normalize_units
+	graph.thickness = graph_thickness
+	graph.antialiased = graph_antialiased
 	
 	add_child(graph)
 	_graphs.push_back(graph)
