@@ -146,6 +146,10 @@ const DebugGraph := preload("./monitor_overlay_debug_graph.gd")
 	set(value):
 		graph_antialiased = value
 		rebuild_ui()
+@export var font_size := 14:
+	set(value):
+		font_size = value
+		rebuild_ui()
 
 var _graphs := []
 var _t := 0.0
@@ -249,6 +253,7 @@ func _create_graph_for(monitor: int, monitor_name: String, unit: String = "") ->
 	graph.monitor = monitor
 	graph.monitor_name = monitor_name
 	graph.font = get_theme_default_font()
+	graph.font_size = font_size
 	graph.custom_minimum_size.y = graph_height
 	graph.max_points = history
 	graph.background_color = background_color
