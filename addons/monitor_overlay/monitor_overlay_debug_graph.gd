@@ -31,13 +31,13 @@ func _draw_background_panel() -> void:
 	draw_rect(panel, background_color)
 
 
+var font_size: int = 14
+
 func _draw_text() -> void:
 	var s_value := _normalize_value(_last_value)
 	var text = monitor_name + ": " + s_value
-	var position = get_canvas_transform().origin
-	position.y += 16.0 # Font size
-	draw_string(font, position, text)
-
+	var position = Vector2(0, font_size) # Y offset = font size
+	draw_string(font, position, text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
 
 # TODO: That function is unoptimized
 func _draw_graph() -> void:
