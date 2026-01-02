@@ -2,17 +2,9 @@
 extends EditorPlugin
 
 
-func get_name():
+func _get_plugin_name() -> String:
 	return "MonitorOverlay"
 
 
-func _enter_tree():
-	add_custom_type(
-		"MonitorOverlay",
-		"VBoxContainer",
-		load("res://addons/monitor_overlay/monitor_overlay.gd"),
-		load("res://addons/monitor_overlay/icon.svg")
-	)
-
-func _exit_tree():
-	remove_custom_type("MonitorOverlay")
+func _get_plugin_icon() -> Texture2D:
+	return load("./icon.svg")

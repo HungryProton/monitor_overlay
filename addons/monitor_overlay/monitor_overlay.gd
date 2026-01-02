@@ -1,4 +1,6 @@
 @tool
+@icon("./icon.svg")
+class_name MonitorOverlay
 extends VBoxContainer
 
 const DebugGraph := preload("./monitor_overlay_debug_graph.gd")
